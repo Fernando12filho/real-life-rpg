@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>➕ Add Quest</h2>
+<form method="post">
+  Title: <input name="title"><br>
+  Description: <input name="description"><br>
+  Attribute:
+  <select name="attr">
+    {% for a in attrs %}<option>{{a['name']}}</option>{% endfor %}
+  </select><br>
+  XP: <input name="xp" value="10"><br>
+  Type: <input name="type" value="side"><br>
+  <button type="submit">Add Quest</button>
+</form>
+{% endblock %}

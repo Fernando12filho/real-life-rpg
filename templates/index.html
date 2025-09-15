@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📊 Stats</h2>
+<ul>
+{% for a in attrs %}
+  <li>{{a['name']}}: Level {{a['base_level'] + (a['xp'] // 100)}} ({{a['xp']}} XP)</li>
+{% endfor %}
+</ul>
+
+<h2>🗡️ Open Quests</h2>
+{% for q in quests %}
+  <div class="card">
+    <strong>{{q['title']}}</strong> ({{q['attr']}}) +{{q['xp']}} XP<br>
+    {{q['description']}} <br>
+    <a href="{{ url_for('complete', qid=q['id']) }}">✔ Complete</a>
+  </div>
+{% else %}
+  <p>No open quests 🎉</p>
+{% endfor %}
+{% endblock %}

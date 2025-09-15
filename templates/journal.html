@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📖 Journal</h2>
+<form method="post">
+  <textarea name="note" rows="3" cols="50"></textarea><br>
+  <button type="submit">Add Entry</button>
+</form>
+
+<h3>Entries</h3>
+<ul>
+{% for e in entries %}
+  <li>{{e['created_at'][:19]}} - {{e['note']}}</li>
+{% endfor %}
+</ul>
+{% endblock %}

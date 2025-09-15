@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <title>Real Life RPG</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .card { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; border-radius: 10px; }
+    .done { text-decoration: line-through; color: gray; }
+  </style>
+</head>
+<body>
+  <h1>Real Life RPG</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">🏠 Home</a> |
+    <a href="{{ url_for('add_quest') }}">➕ Add Quest</a> |
+    <a href="{{ url_for('journal') }}">📖 Journal</a>
+  </nav>
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>

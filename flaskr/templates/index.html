@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>📊 Stats</h2>
-<ul>
-{% for a in attrs %}
-  <li>{{a['name']}}: Level {{a['base_level'] + (a['xp'] // 100)}} ({{a['xp']}} XP)</li>
-{% endfor %}
-</ul>
-
+<div class="stats">
+  <ul>
+  {% for a in attrs %}
+    <li>{{a['name']}}: Level {{a['base_level'] + (a['xp'] // 100)}} ({{a['xp']}} XP)</li>
+  {% endfor %}
+  </ul>
+  <div class="avatar">
+    <div class="avatar-image">
+      <img src="" alt="Avatar">
+    </div>
+    <div class="avatar-info">
+      <p>Level: {{level}}</p>
+      <p>Gold: 99999</p>
+    </div>
+  </div>
+</div>
 <h2>🗡️ Open Quests</h2>
 {% for q in quests %}
   <div class="card">

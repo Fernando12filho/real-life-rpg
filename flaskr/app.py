@@ -21,6 +21,10 @@ def close_db(exc):
 @app.route("/")
 def index():
     db = get_db()
+    character = db.execute("SELECT * FROM character LIMIT 1").fetchone()
+    if not character:
+        return render_template("setup.html")
+    
     attrs = db.execute("SELECT * FROM attribute").fetchall()
     quests = db.execute("SELECT * FROM quest WHERE status='open'").fetchall()
     return render_template("index.html", attrs=attrs, quests=quests)

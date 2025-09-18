@@ -1,12 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Warrior</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2rem; }
-        .card { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; border-radius: 10px; }
-    </style>
-</html>
+{% extends "base.html" %}
+{% block body %}
+<h2>Setup Character</h2>
+{% endblock %}
+{% block content %}
+<form class="char-info" method="post">
+  <label for="name">Character Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+  <label for="class">Class:</label><br>
+    <select id="class" name="class" required>
+      <option value="Scholar">Scholar</option>
+      <option value="Warrior">Warrior</option>
+      <option value="Artist">Artist</option>
+      <option value="Athlete">Athlete</option>
+      <option value="Merchant">Merchant</option>
+    </select><br><br>
+  <input type="submit" value="Create Character">
+</form>
+<form class="char-avatar" method="post" enctype="multipart/form-data">
+  <!--  -->
+</form>
+{% endblock %}

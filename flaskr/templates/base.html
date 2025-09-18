@@ -11,13 +11,14 @@
   </style>
 </head>
 <body>
-  <h1>Real Life RPG</h1>
+  <!-- <h1>Real Life RPG</h1>
   <nav>
-    <a href="{{ url_for('index') }}">🏠 Home</a> |
-    <a href="{{ url_for('add_quest') }}">➕ Add Quest</a> |
-    <a href="{{ url_for('journal') }}">📖 Journal</a>
+    <a href="{{ url_for('home.index') }}">🏠 Home</a> |
+    <a href="{{ url_for('home.add_quest') }}">➕ Add Quest</a> |
+    <a href="{{ url_for('home.journal') }}">📖 Journal</a>
   </nav>
-  <hr>
+  <hr> -->
+  {% block body %}{% endblock %}
   {% block content %}{% endblock %}
 </body>
 </html>

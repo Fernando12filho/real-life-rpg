@@ -1,35 +1,22 @@
-from flask import Flask, g, render_template, request, redirect, url_for
+from flask import Flask, g, render_template, request, redirect, url_for, Blueprint
 import sqlite3, datetime, os
+from flaskr.db import get_db
 
-DB = "rpg.db"
-app = Flask(__name__)
+bp = Blueprint('home', __name__)
 
-def get_db():
-    db = getattr(g, "_db", None)
-    if db is None:
-        db = sqlite3.connect(DB)
-        db.row_factory = sqlite3.Row
-        g._db = db
-    return db
-
-@app.teardown_appcontext
-def close_db(exc):
-    db = getattr(g, "_db", None)
-    if db is not None:
-        db.close()
-
-@app.route("/")
+@bp.route("/")
 def index():
     db = get_db()
     character = db.execute("SELECT * FROM character LIMIT 1").fetchone()
     if not character:
+        print("No character found, redirecting to setup.")
         return render_template("setup.html")
     
     attrs = db.execute("SELECT * FROM attribute").fetchall()
     quests = db.execute("SELECT * FROM quest WHERE status='open'").fetchall()
     return render_template("index.html", attrs=attrs, quests=quests)
 
-@app.route("/add", methods=["GET","POST"])
+@bp.route("/add", methods=["GET","POST"])
 def add_quest():
     if request.method == "POST":
         title = request.form["title"]
@@ -46,7 +33,7 @@ def add_quest():
     attrs = get_db().execute("SELECT name FROM attribute").fetchall()
     return render_template("add_quest.html", attrs=attrs)
 
-@app.route("/complete/<int:qid>")
+@bp.route("/complete/<int:qid>")
 def complete(qid):
     db = get_db()
     q = db.execute("SELECT * FROM quest WHERE id=?", (qid,)).fetchone()
@@ -56,7 +43,7 @@ def complete(qid):
         db.commit()
     return redirect(url_for("index"))
 
-@app.route("/journal", methods=["GET","POST"])
+@bp.route("/journal", methods=["GET","POST"])
 def journal():
     db = get_db()
     if request.method == "POST":
@@ -68,8 +55,3 @@ def journal():
     entries = db.execute("SELECT * FROM journal ORDER BY created_at DESC").fetchall()
     return render_template("journal.html", entries=entries)
 
-if __name__ == "__main__":
-    if not os.path.exists(DB):
-        import init_db
-        init_db.init_db()
-    app.run(debug=True)
